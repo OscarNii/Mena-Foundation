@@ -141,6 +141,39 @@ export function Carousel() {
             />
           ))}
         </div>
+
+        {/* Bottom-right preview of the next slide (glass rectangle) */}
+        <div className="absolute bottom-6 right-6 z-30">
+          {(() => {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            const next = slides[nextIndex];
+            return (
+              <button
+                onClick={() => {
+                  goToSlide(nextIndex);
+                }}
+                aria-label={`Preview next slide: ${next.title}`}
+                className="glass-card w-44 md:w-56 h-28 md:h-36 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
+              >
+                <div className="w-full h-full relative">
+                  <img
+                    src={next.image}
+                    alt={next.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1200';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                  <div className="absolute left-3 right-3 bottom-3 text-sm md:text-base text-white font-semibold">
+                    {next.title}
+                  </div>
+                </div>
+              </button>
+            );
+          })()}
+        </div>
       </div>
     </section>
   );
