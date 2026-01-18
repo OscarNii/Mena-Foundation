@@ -17,32 +17,31 @@ export function Carousel() {
       id: 1,
       title: 'Transforming Lives Through Education',
       subtitle: 'Providing education and hope to underprivileged communities',
-      image: 'src/imgs/PHOTO-2025-09-25-02-08-18.jpg'
-
+      image: new URL('../imgs/PHOTO-2025-09-25-02-08-18.jpg', import.meta.url).href
     },
     {
       id: 2,
       title: 'Healthcare for All',
       subtitle: 'Making healthcare accessible to those in need',
-      image: 'src/imgs/PHOTO-2025-09-25-02-11-17.jpg'
+      image: new URL('../imgs/PHOTO-2025-09-25-02-11-17.jpg', import.meta.url).href
     },
     {
       id: 3,
       title: 'Community Support',
       subtitle: 'Building stronger communities through collective action',
-      image: 'src/imgs/PHOTO-2025-09-25-02-13-44.jpg'
+      image: new URL('../imgs/PHOTO-2025-09-25-02-13-44.jpg', import.meta.url).href
     },
     {
       id: 4,
       title: 'Clean Water Initiative',
       subtitle: 'Ensuring access to clean water for all',
-      image: 'src/imgs/PHOTO-2025-09-25-02-13-44.jpg'
+      image: new URL('../imgs/PHOTO-2025-09-25-02-13-44.jpg', import.meta.url).href
     },
     {
       id: 5,
       title: 'Empowering Futures',
       subtitle: 'Creating opportunities for sustainable growth',
-      image: 'src/imgs/PHOTO-2025-09-25-02-11-17.jpg'
+      image: new URL('../imgs/PHOTO-2025-09-25-02-11-17.jpg', import.meta.url).href
     }
   ];
 
@@ -141,7 +140,52 @@ export function Carousel() {
             />
           ))}
         </div>
+
+        {/* Bottom-right slideshow preview of upcoming slides (glass rectangles) */}
+        <div className="absolute bottom-6 right-6 z-30">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide max-w-[600px] pb-2">
+            {(() => {
+              // Get the next 3 upcoming slides
+              const upcomingSlides: { slide: CarouselImage; index: number }[] = [];
+              for (let i = 1; i <= 3; i++) {
+                const nextIndex = (currentSlide + i) % slides.length;
+                upcomingSlides.push({
+                  slide: slides[nextIndex],
+                  index: nextIndex
+                });
+              }
+              
+              return upcomingSlides.map(({ slide, index }) => (
+                <button
+                  key={slide.id}
+                  onClick={() => {
+                    goToSlide(index);
+                  }}
+                  aria-label={`Preview slide: ${slide.title}`}
+                  className="glass-card w-36 md:w-44 h-24 md:h-32 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 flex-shrink-0"
+                >
+                  <div className="w-full h-full relative">
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1200';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                    <div className="absolute left-2 right-2 bottom-2 text-xs md:text-sm text-white font-semibold line-clamp-2">
+                      {slide.title}
+                    </div>
+                  </div>
+                </button>
+              ));
+            })()}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
