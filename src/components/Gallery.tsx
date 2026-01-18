@@ -8,7 +8,7 @@ import img2 from '../imgs/PHOTO-2025-09-25-02-08-18.jpg';
 import img3 from '../imgs/PHOTO-2025-09-25-02-08-22.jpg';
 import img4 from '../imgs/PHOTO-2025-09-25-02-13-44.jpg';
 import img5 from '../imgs/PHOTO-2025-09-25-02-11-32.jpg';
-import img6 from '../imgs/PHOTO-2025-09-25-02-08-45-29.jpg';
+import img6 from '../imgs/PHOTO-2025-09-25-08-45-29.jpg';
 
 export function Gallery() {
   const [images, setImages] = useState<GalleryImage[]>([]);
