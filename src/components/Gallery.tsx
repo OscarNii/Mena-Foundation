@@ -32,42 +32,42 @@ export function Gallery() {
       id: '1',
       title: 'School Supplies Distribution',
       description: 'Providing essential educational materials to 200 children in rural communities',
-      image_url: 'https://images.pexels.com/photos/8422403/pexels-photo-8422403.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-11-17.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     },
     {
       id: '2',
       title: 'Medical Camp Success',
       description: 'Free health checkups and medicines distributed to 500+ families',
-      image_url: 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-08-18.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     },
     {
       id: '3',
       title: 'Community Kitchen',
       description: 'Daily meals served to underprivileged community members',
-      image_url: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-08-22.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     },
     {
       id: '4',
       title: 'Clean Water Initiative',
       description: 'Installing water purification systems in remote villages',
-      image_url: 'https://images.pexels.com/photos/6646914/pexels-photo-6646914.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-13-44.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     },
     {
       id: '5',
       title: 'Women Empowerment Program',
       description: 'Skill development training for 150 women entrepreneurs',
-      image_url: 'https://images.pexels.com/photos/6646919/pexels-photo-6646919.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-11-32.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     },
     {
       id: '6',
       title: 'Orphanage Support',
       description: 'Monthly support and care for 80 orphaned children',
-      image_url: 'https://images.pexels.com/photos/8363030/pexels-photo-8363030.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image_url: new URL('../imgs/PHOTO-2025-09-25-02-08-45-29.jpg', import.meta.url).href,
       created_at: new Date().toISOString()
     }
   ];
@@ -106,7 +106,7 @@ export function Gallery() {
                     onClick={() => setExpandedImage(image)}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800';
+                      target.src = new URL('../imgs/PHOTO-2025-09-25-02-11-17.jpg', import.meta.url).href;
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end pointer-events-none">
@@ -149,7 +149,7 @@ export function Gallery() {
                   className="w-full max-h-[70vh] object-contain bg-gray-900"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800';
+                    target.src = new URL('../imgs/PHOTO-2025-09-25-02-11-17.jpg', import.meta.url).href;
                   }}
                 />
               </div>
