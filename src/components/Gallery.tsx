@@ -5,6 +5,7 @@ import { Image as ImageIcon } from 'lucide-react';
 export function Gallery() {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedImage, setExpandedImage] = useState<GalleryImage | null>(null);
 
   useEffect(() => {
     loadGalleryImages();
@@ -101,13 +102,14 @@ export function Gallery() {
                   <img
                     src={image.image_url}
                     alt={image.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer"
+                    onClick={() => setExpandedImage(image)}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800';
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end pointer-events-none">
                     <div className="p-4 w-full">
                       <ImageIcon className="w-8 h-8 text-white mb-2" />
                     </div>
@@ -119,6 +121,43 @@ export function Gallery() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Expanded Image Modal */}
+        {expandedImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+            onClick={() => setExpandedImage(null)}
+          >
+            <div
+              className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden animate-scale-in"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setExpandedImage(null)}
+                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="relative">
+                <img
+                  src={expandedImage.image_url}
+                  alt={expandedImage.title}
+                  className="w-full max-h-[70vh] object-contain bg-gray-900"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800';
+                  }}
+                />
+              </div>
+              <div className="p-8">
+                <h3 className="text-3xl font-bold text-blue-900 mb-4">{expandedImage.title}</h3>
+                <p className="text-xl text-blue-700 leading-relaxed">{expandedImage.description}</p>
+              </div>
+            </div>
           </div>
         )}
       </div>

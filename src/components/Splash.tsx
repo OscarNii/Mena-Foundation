@@ -7,7 +7,7 @@ interface SplashProps {
   onFinish?: () => void;
 }
 
-export function Splash({ duration = 5000, fadeDuration = 600, onFinish }: SplashProps) {
+export function Splash({ duration = 7000, fadeDuration = 800, onFinish }: SplashProps) {
   const [fading, setFading] = useState(false);
 
   useEffect(() => {

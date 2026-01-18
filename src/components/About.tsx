@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import { Target, Eye, Smile, Heart, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface AboutSection {
@@ -52,50 +52,20 @@ const duplicatedSections = [...sections, ...sections, ...sections];
 
 export function About() {
   const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>(0);
-  const scrollPosRef = useRef(0);
-
-  const scrollSpeed = 0.5; // pixels per frame for slow continuous motion
-
-  const animate = useCallback(() => {
-    if (!isPaused && containerRef.current) {
-      const container = containerRef.current;
-      const maxScroll = container.scrollWidth / 3; // One third of duplicated content
-      
-      scrollPosRef.current += scrollSpeed;
-      
-      // Reset to start for infinite loop effect
-      if (scrollPosRef.current >= maxScroll) {
-        scrollPosRef.current = 0;
-      }
-      
-      container.scrollLeft = scrollPosRef.current;
-    }
-    animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused]);
-
-  useEffect(() => {
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [animate]);
 
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
   const scrollBy = (amount: number) => {
-    if (containerRef.current) {
-      containerRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+    const container = document.getElementById('marquee-container');
+    if (container) {
+      container.scrollBy({ left: amount, behavior: 'smooth' });
     }
   };
 
   return (
     <section id="about" className="py-20 bg-gradient-to-b from-white to-blue-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
             About Our Mission
@@ -128,28 +98,29 @@ export function About() {
 
         {/* Continuous Marquee Container */}
         <div
-          ref={containerRef}
+          id="marquee-container"
+          className="marquee-container"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="flex gap-8 overflow-x-hidden scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {duplicatedSections.map((section, index) => (
-            <div
-              key={`${section.id}-${index}`}
-              className="flex-shrink-0 w-80 md:w-96 about-card"
-            >
-              <div className="glass-card p-8 rounded-2xl hover:transform hover:scale-105 transition-all duration-300 h-full">
-                <div className={`${section.color} w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto`}>
-                  {section.icon}
+          <div className={`marquee-content ${isPaused ? 'marquee-paused' : ''}`}>
+            {duplicatedSections.map((section, index) => (
+              <div
+                key={`${section.id}-${index}`}
+                className="flex-shrink-0 w-80 md:w-96 about-card"
+              >
+                <div className="glass-card p-8 rounded-2xl hover:transform hover:scale-105 transition-all duration-300 h-full">
+                  <div className={`${section.color} w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto`}>
+                    {section.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-blue-900 mb-4 text-center">{section.title}</h3>
+                  <p className="text-blue-700 text-center leading-relaxed">
+                    {section.description}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-blue-900 mb-4 text-center">{section.title}</h3>
-                <p className="text-blue-700 text-center leading-relaxed">
-                  {section.description}
-                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
