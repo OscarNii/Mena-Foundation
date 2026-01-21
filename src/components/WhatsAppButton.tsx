@@ -4,7 +4,7 @@ export function WhatsAppButton() {
   const whatsappNumber = '+31685104250';
   const message = 'Hello Mena Charity Foundation, I would like to learn more about your programs.';
 
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${31685104250}?text=${encodeURIComponent(message)}`;
 
   return (
     <a
