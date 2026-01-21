@@ -2,7 +2,7 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 export function Contact() {
   const emailAddress = 'info@menacharityfoundation.org';
-  const phoneNumber = '+1 (234) 567-8900';
+  const phoneNumber = '+31685104250';
   const address = '123 Charity Street, Hope City, HC 12345';
 
   return (
