@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { supabase, GalleryImage } from '../lib/supabase';
+import { useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 
 // Import all images from the imgs folder
@@ -10,32 +9,18 @@ import img4 from '../imgs/PHOTO-2025-09-25-02-13-44.jpg';
 import img5 from '../imgs/PHOTO-2025-09-25-02-11-32.jpg';
 import img6 from '../imgs/PHOTO-2025-09-25-08-45-29.jpg';
 
+interface GalleryImage {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  created_at: string;
+}
+
 export function Gallery() {
-  const [images, setImages] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(true);
   const [expandedImage, setExpandedImage] = useState<GalleryImage | null>(null);
 
-  useEffect(() => {
-    loadGalleryImages();
-  }, []);
-
-  async function loadGalleryImages() {
-    try {
-      const { data, error } = await supabase
-        .from('gallery_images')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setImages(data || []);
-    } catch (error) {
-      console.error('Error loading gallery:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const placeholderImages = [
+  const galleryImages: GalleryImage[] = [
     {
       id: '1',
       title: 'School Supplies Distribution',
@@ -80,8 +65,6 @@ export function Gallery() {
     }
   ];
 
-  const displayImages = images.length > 0 ? images : placeholderImages;
-
   return (
     <section id="gallery" className="py-20 bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,13 +77,8 @@ export function Gallery() {
           </p>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {displayImages.map((image, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {galleryImages.map((image, index) => (
               <div
                 key={image.id}
                 className="glass-card rounded-2xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 animate-fade-in-up"
@@ -130,7 +108,6 @@ export function Gallery() {
               </div>
             ))}
           </div>
-        )}
 
         {/* Expanded Image Modal */}
         {expandedImage && (
