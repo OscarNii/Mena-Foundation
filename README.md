@@ -203,3 +203,46 @@ For questions or support, please contact:
 
 Built with ❤️ for the Mena Foundation
 
+
+## 📦 Vercel Deployment
+
+This project is ready to deploy to Vercel. It uses a static build for the frontend and Node serverless functions for backend APIs.
+
+Required environment variables (set these in Vercel Project Settings → Environment Variables):
+
+- **Production / Preview (server-only)**:
+  - `SUPABASE_URL` — your Supabase project URL
+  - `SUPABASE_SERVICE_ROLE_KEY` — Supabase service role key (server-only)
+  - `STRIPE_SECRET_KEY` — Stripe secret key (server-only)
+
+- **Client (prefixed with `VITE_`)**:
+  - `VITE_SUPABASE_URL` — your Supabase project URL
+  - `VITE_SUPABASE_ANON_KEY` — Supabase anon key
+  - `VITE_STRIPE_PUBLISHABLE_KEY` — Stripe publishable key
+
+Quick deploy steps (connect your GitHub repo in Vercel):
+
+1. In Vercel, create a new project and import this repository.
+2. Vercel will detect a Vite app. Use these build settings if prompted:
+   - Install Command: `npm install`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. Add the environment variables listed above in the Vercel dashboard.
+4. Deploy.
+
+Or deploy locally with the Vercel CLI:
+
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
+
+Add server env vars using the CLI:
+
+```bash
+vercel env add SUPABASE_URL production
+vercel env add SUPABASE_SERVICE_ROLE_KEY production
+vercel env add STRIPE_SECRET_KEY production
+```
+
