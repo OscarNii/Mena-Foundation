@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Heart } from 'lucide-react';
 
 interface SplashProps {
   duration?: number; // total time to show splash (ms)
