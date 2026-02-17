@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
+const navItems = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Video', href: '#video' },
+  { label: 'Donate', href: '#donate' },
+  { label: 'Contact', href: '#contact' }
+];
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Video', href: '#video' },
-    { label: 'Donate', href: '#donate' },
-    { label: 'Contact', href: '#contact' }
-  ];
-
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export function Navbar() {
               className="w-8 h-8 md:w-10 md:h-10"
               style={{ animation: 'logoFloat 4000ms ease-in-out infinite' }}
             />
-            <span className="text-xl font-bold text-blue-900">Mena Impact Foudation</span>
+            <span className="text-xl font-bold text-blue-900">Mena Impact Foundation</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
